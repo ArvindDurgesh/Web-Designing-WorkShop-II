@@ -1,0 +1,45 @@
+.Main {
+    height: 700px;
+    width: 1500px;
+    border:2px solid black;
+    /* background-color: aqua; */
+    background-image: url(car.jpg);
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+
+
+}
+#front1{
+    height: 600px;
+    width: 1500px;
+    /* border:1px solid black; */
+}
+
+#Front2 {
+   height:100px;
+   width:1500px;
+   /* background-color: rgb(30, 161, 95); */
+   align-content: center;
+   
+   
+}
+
+button {
+    height:50px ;
+    width:250px;
+    margin-left: 600px;
+    border-radius: 10px;
+    background-color: rgb(103, 217, 217);
+    font-size: 1.5em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+
+}
+button:hover {
+    background-color: aqua;
+    height:70px ;
+    width:290px;
+    
+    
+}
+
