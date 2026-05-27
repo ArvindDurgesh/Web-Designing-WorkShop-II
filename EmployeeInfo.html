@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Salary Management System</title>
+    <style>
+        :root {
+            --primary: #4361ee;
+            --secondary: #3f37c9;
+            --bg: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #2b2d42;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 700px;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 30px;
+        }
+
+        .input-group {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 15px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+        }
+
+        input {
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary);
+        }
+
+        .button-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        button {
+            padding: 12px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        button:hover {
+            background-color: var(--secondary);
+            transform: translateY(-2px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        #output {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        table.results {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        table.results th, table.results td {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        table.results th {
+            background-color: #f1f3ff;
+            color: var(--primary);
+        }
+
+        .highlight-text {
+            color: var(--primary);
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Salary Management System</h2>
+    
+    <div class="input-group">
+        <label>Employee Name</label>
+        <input type="text" id="name" >
+        
+        <label>Employee ID</label>
+        <input type="text" id="empId" >
+        
+        <label>Monthly Salary</label>
+        <input type="number" id="salary" >
+        
+        <label>Department</label>
+        <input type="text" id="dept" >
+    </div>
+
+    <div class="button-grid">
+        <button onclick="addEmployee()">Add Employee</button>
+        <button onclick="displayEmployees()">Display All</button>
+        <button onclick="filterSalary()">Salary > 50k</button>
+        <button onclick="totalSalary()">Total Salary</button>
+        <button onclick="averageSalary()">Average Salary</button>
+        <button onclick="countDepartment()">By Dept</button>
+    </div>
+
+    <div id="output"></div>
+</div>
+
+<script>
+    let employees = [];
+
+    function addEmployee() {
+        let name = document.getElementById("name").value;
+        let empId = document.getElementById("empId").value;
+        let salary = parseFloat(document.getElementById("salary").value);
+        let dept = document.getElementById("dept").value;
+
+        if (name === "" || empId === "" || isNaN(salary) || dept === "") {
+            alert("Please fill all fields properly");
+            return;
+        }
+
+        employees.push({ name, id: empId, salary, department: dept });
+        alert("Employee Added Successfully!");
+        
+        // Clear fields
+        document.querySelectorAll('input').forEach(input => input.value = "");
+    }
+
+    function displayEmployees() {
+        if (employees.length === 0) {
+            document.getElementById("output").innerHTML = "No records found.";
+            return;
+        }
+
+        let output = `<h3>Employee Directory</h3><table class="results">
+                      <tr><th>Name</th><th>ID</th><th>Salary</th><th>Dept</th></tr>`;
+        employees.forEach(emp => {
+            output += `<tr>
+                <td>${emp.name}</td>
+                <td>${emp.id}</td>
+                <td>₹${emp.salary.toLocaleString()}</td>
+                <td>${emp.department}</td>
+            </tr>`;
+        });
+        output += "</table>";
+        document.getElementById("output").innerHTML = output;
+    }
+
+    function filterSalary() {
+        let filtered = employees.filter(emp => emp.salary > 50000);
+        let output = `<h3>High Earners (> 50k)</h3><table class="results">
+                      <tr><th>Name</th><th>Salary</th></tr>`;
+        filtered.forEach(emp => {
+            output += `<tr><td>${emp.name}</td><td>₹${emp.salary.toLocaleString()}</td></tr>`;
+        });
+        output += "</table>";
+        document.getElementById("output").innerHTML = output;
+    }
+
+    function totalSalary() {
+        let total = employees.reduce((sum, emp) => sum + emp.salary, 0);
+        document.getElementById("output").innerHTML = 
+            `<h3>Total Payout</h3><p class="highlight-text">₹ ${total.toLocaleString()}</p>`;
+    }
+
+    function averageSalary() {
+        if (employees.length === 0) return;
+        let total = employees.reduce((sum, emp) => sum + emp.salary, 0);
+        let avg = total / employees.length;
+        document.getElementById("output").innerHTML = 
+            `<h3>Average Salary</h3><p class="highlight-text">₹ ${avg.toLocaleString(undefined, {minimumFractionDigits: 2})}</p>`;
+    }
+
+    function countDepartment() {
+        let deptName = prompt("Enter Department Name:");
+        if (!deptName) return;
+        let count = employees.filter(emp => emp.department.toLowerCase() === deptName.toLowerCase()).length;
+        document.getElementById("output").innerHTML = 
+            `<h3>Department Count</h3><p>Employees in <b>${deptName}</b>: ${count}</p>`;
+    }
+</script>
+
+</body>
+</html>

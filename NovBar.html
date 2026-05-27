@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .main {
+            
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            height:100vh;
+            gap :10px;
+        }
+        #one {
+            height: 200px;
+            width:auto;
+            text-align: center;
+            background-color: aqua;
+            /* align-items: center; */
+            /* justify-content: center; */
+            align-content: center;
+        }
+        #two {
+            text-align: center;
+            height: 60px;
+            width:auto; 
+            background-color: aquamarine;
+            align-content : center;
+            font-size: x-large;
+
+        }
+        article {
+            margin-right: 900px ;
+        }
+        #two ul li{
+            list-style: none;
+        }
+        #three {
+            display:flex;
+            /* flex-direction: column; */
+            background-color: beige;
+            height: 200px;
+            width: 1450;
+
+        }
+        #inner2 {
+            border-right-width: 380px;
+            border-color: black;
+            border: 3px;
+        }
+        #inner1 ,#inner2 {
+           
+            text-align: center;
+            height:200px ;
+            width:750px;
+
+        }
+        .vert{
+            display: flex;
+            gap: 32px;
+            
+        }
+
+
+    </style>
+</head>
+<body>
+    <div class="miain">
+        <div id="one">  <h1>My Website</h1> </div>
+        <div id="two">
+            <ul class="vert">
+                <li><article>Website</article></li>
+                <li>Home</li>
+                <li>About</li>
+                <li>Services</li>
+                <li>Contact</li>
+            </ul>
+        </div>
+        <div id="three">
+            <div id="inner1">
+                    <h2>Column 1</h2>
+                    <p>This is the first column. On small devices the column occupies full width. while 
+                        on medium and large devices <br>
+                        it occupies half with using bootstrap grid classes.
+                    </p>
+            </div>
+            <div id="inner2">
+                    <h2>Column 2</h2>
+                    <p>
+                        This is the second columne. Bootstrap grid system helps to create responsive layout.
+                    </p>
+            </div>
+            
+        </div>
+        <div id="four"></div>
+    </div>
+</body>
+</html>
